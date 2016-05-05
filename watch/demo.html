@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+<script>
+	angular.module('myApp', [])
+		.controller('mainCtrl', function ($scope) {
+			$scope.change = function () {
+			document.getElementById('myText').value = 'changed!';
+
+			function did(){
+				$scope.aa=document.getElementById('myText').value;
+			};
+			$scope.$watch("document.getElementById('myText').value",did);
+		}
+	})
+</script>
+</head>
+<body>
+	<!-- 点击按钮直接改变文本框内的值不会引起数据绑定，所以需要加$watch监听 -->
+	<div ng-controller="mainCtrl">
+		<input id="myText" type="text" ng-model="aa"/>
+		<button ng-click="change();">click me</button>
+		<h2>{{aa}}</h2>
+	</div>
+	
+
+	
+</body>
+</html>
