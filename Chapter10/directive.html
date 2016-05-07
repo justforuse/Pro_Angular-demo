@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../bootstrap-theme.css">
+	<script src="../angular.js"></script>
+	<script>
+		angular.module("exampleApp", [])
+			.controller("defaultCtrl", function($scope){
+				$scope.todos=[
+					{action:"吃饭", complete:false},
+					{action:"睡觉", complete:false},
+					{action:"打代码", complete:true}
+				];
+
+				$scope.add=function(){
+					var obj = {action:"喝水", complete:true};
+					$scope.todos.push(obj);
+				}
+			})
+	</script>
+</head>
+<body>
+	<div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+		<h3 class="panel-header">To Do List</h3>
+		data...
+		<div>There are <span ng-bind="todos.length">hehe</span> items..</div>
+		<div>There are {{todos.length}} items..</div>
+		<div>There are <span class="ng-bind:todos.length"></span> items..</div>
+
+		<div ng-bind-template="First: {{todos[0].action}}. Second: {{todos[1].action}}"></div>
+		
+		<!-- 阻止数据绑定 -->
+		<div ng-non-bindable>
+			There are {{todos.length}} items..
+		</div>
+
+		<div class="well">
+			<div>The first item is: {{todos[0].action}}</div>
+		</div>
+		<div class="form-group-well">
+			<label for="firstItem">Set First Item:</label>
+			<input name="firstItem" class="form-control" ng-model="todos[0].action">
+		</div>
+		<!-- 添加元素后，以上视图会更新 -->
+		<button ng-click="add()">add item</button>
+	</div>
+</body>
+</html>
