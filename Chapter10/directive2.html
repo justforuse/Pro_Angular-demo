@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../bootstrap-theme.css">
+	<style>
+		.odd { background-color: lightcoral}
+		.even { background-color: lavenderblush}
+	</style>
+	<script src="../angular.js"></script>
+	<script>
+		angular.module("exampleApp", [])
+			.controller("defaultCtrl", function($scope){
+				$scope.todos=[
+					{action:"吃饭", complete:false},
+					{action:"睡觉", complete:false},
+					{action:"打代码", complete:true}
+				];
+
+				$scope.add=function(){
+					var obj = {action:"喝水", complete:true};
+					$scope.todos.push(obj);
+				};
+
+				$scope.viewFile=function(){
+					return $scope.showList ? "list.html" : "table.html";
+				}
+				$scope.reportChange = function(){
+					console.log("Displayed content: " + $scope.viewFile());
+				}
+			})
+	</script>
+</head>
+<body>
+	<div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+		<h3 class="panel-header">To Do List</h3>
+		<!-- 注意src格式，再嵌套一个'' -->
+		<div class="well">
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" ng-model="showList">
+					Use the list view
+				</label>
+			</div>
+		</div>
+		<ng-include src="viewFile()" onload="reportChange()"></ng-include>
+		
+	</div>
+</body>
+</html>
