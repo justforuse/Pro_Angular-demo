@@ -13,7 +13,12 @@
 			function did(){
 				$scope.aa=document.getElementById('myText').value;
 			};
+
 			$scope.$watch("document.getElementById('myText').value",did);
+
+			$scope.say=function(){
+				alert("changed!");
+			}
 		}
 	})
 </script>
@@ -21,7 +26,7 @@
 <body>
 	<!-- 点击按钮直接改变文本框内的值不会引起数据绑定，所以需要加$watch监听 -->
 	<div ng-controller="mainCtrl">
-		<input id="myText" type="text" ng-model="aa"/>
+		<input id="myText" type="text" ng-model="aa" ng-change="say()"/>
 		<button ng-click="change();">click me</button>
 		<h2>{{aa}}</h2>
 	</div>

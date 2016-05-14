@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="exampleApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../bootstrap-theme.css">
+	<script src="../angular.js"></script>
+	<script>
+		angular.module("exampleApp", [])
+			.controller("defaultCtrl", function($scope){
+
+				$scope.dataValue=false;
+			})
+	</script>
+
+	<style>
+		.Red { background-color: lightcoral; }
+		.Green { background-color: lightgreen; }
+		.Blue { background-color: lightblue; }
+	</style>
+
+</head>
+<body>
+	<div class="checkbox well">
+		<label>
+			<input type="checkbox" ng-model="dataValue">
+			Set the Data value
+		</label>
+	</div>
+	<button class="btn btn-success" ng-disabled="dataValue">My Button</button>
+</body>
+</html>

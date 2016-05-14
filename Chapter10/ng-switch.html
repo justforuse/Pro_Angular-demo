@@ -41,7 +41,10 @@
 		<!-- 注意src格式，再嵌套一个'' -->
 		<div class="well">
 			<div class="radio" ng-repeat="button in ['None', 'Table', 'List']">
-				<input type="radio" ng-model="data.mode" value="{{button}}" ng-checked="$first">{{button}}
+				<label ng-cloak>
+					<input type="radio" ng-model="data.mode" value="{{button}}" ng-checked="$first">{{button}}
+				</label>
+				
 			</div>
 		</div>
 
