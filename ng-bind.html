@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="angular.js"></script>
+	<script>
+		angular.module("myApp", [])
+			.controller("controller1", function($scope){
+				$scope.data1="data1";
+			})
+			.controller("controller2", function($scope){
+				$scope.data2="data2";
+			})
+	</script>
+</head>
+<body>
+	<div class="panel" ng-controller="controller1">
+		<input type="text" ng-model="data1">{{data1}}
+	</div>
+
+	<div class="panel" ng-controller="controller2">
+		<input type="text" ng-model="data2">{{data2}}
+	</div>
+
+</body>
+</html>

@@ -8,19 +8,8 @@
 	<script>
 		angular.module("exampleApp", [])
 			.controller("defaultCtrl", function ($scope) {
-
-				$scope.requireValue = true;
+				$scope.requireValue=true;
 				$scope.matchPattern = new RegExp("^[a-z]");
-
-				$scope.check=function(arg){
-					angular.forEach($scope.myForm.form, function(key, value){
-						if(key.substring(0,1) !=='$'){
-							console.log(key);
-						}
-					})
-					console.log($scope.myForm.form);
-					console.log(arg);
-				}
 			});
 	</script>
 	<style>
@@ -38,9 +27,9 @@
 			<div class="well">
 				
 				<div class="form-group">
-					<label>Text:</label>
-					<input name="sample" class="form-control" ng-model="inputValue" ng-required="requireValue" ng-minlength="3" ng-maxlength="10" ng-pattern="matchPattern">
-					<button ng-click="check(myForm.sample.$error)">Check</button>
+					
+					<textarea name="sample" cols="40" rows="3" ng-model="textValue" ng-required="requireValue" ng-minlength="3" ng-maxlength="10" ng-pattern="matchPattern" style="resize:none;">
+					</textarea>
 				</div>
 		
 			</div>

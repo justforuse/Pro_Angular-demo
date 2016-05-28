@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+	<title>Controllers</title>
+	<script src="../angular.js"></script>
+	<link href="../bootstrap.css" rel="stylesheet" />
+	<link href="../bootstrap-theme.css" rel="stylesheet" />
+	<script src="controller.js"></script>
+</head>
+
+<body ng-controller="topLevelCtrl">
+	<div class="well">
+		<h4>Top controller</h4>
+		<div class="input-group">
+			<span class="input-group-btn">
+				<button class="btn btn-default" ng-click="reverseText()">
+					Reverse
+				</button>
+				<button class="btn btn-default" ng-click="changeCase()">
+					Case
+				</button>
+			</span>
+		</div>
+		<input type="text" class="form-control" ng-model="data.dataValue">	
+	</div>
+
+	<div class="well" ng-controller="firstChildCtrl">
+		<h4>First controller</h4>
+		<div class="input-group">
+			<span class="input-group-btn">
+				<button class="btn btn-default" ng-click="reverseText()">
+					Reverse
+				</button>
+				<button class="btn btn-default" ng-click="changeCase()">
+					Case
+				</button>
+			</span>
+			<input type="text" class="form-control" ng-model="data.dataValue">
+		</div>	
+	</div>
+
+	<div class="well" ng-controller="secondChildCtrl">
+		<h4>Second controller</h4>
+		<div class="input-group">
+			<span class="input-group-btn">
+				<button class="btn btn-default" ng-click="reverseText()">
+					Reverse
+				</button>
+				<button class="btn btn-default" ng-click="changeCase()">
+					Case
+				</button>
+				<button class="btn btn-default" ng-click="shiftFour()">
+					Shift
+				</button>
+			</span>
+			<input type="text" class="form-control" ng-model="data.dataValue">
+		</div>	
+	</div>
+
+</body>
+</html>
