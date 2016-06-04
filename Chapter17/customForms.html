@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<link href="../bootstrap.css" rel="stylesheet" />
+	<link href="../bootstrap-theme.css" rel="stylesheet" />
+	<script id="triTemplate">
+		<div class="well">
+			<div class="btn-group">
+				<button class="btn btn-default">Yes</button>
+				<button class="btn btn-default">No</button>
+				<button class="btn btn-default">Not Sure</button>
+			</div>
+		</div>
+	</script>
+	<script>
+		angular.module("exampleApp", [])
+			
+			.directive("triButton", function(){
+				return {
+					restrict:"E",
+					replace:true,
+					require:"ngModel",
+					template:document.querySelector("#triTemplate").outerText,
+					link:function(scope,element,attrs,ctrl){
+						element.on("click", function(event){
+							setSelected(event.target.innerText);
+
+							scope.$apply(function(){
+								ctrl.$setViewValue(event.target.innerText);
+							})
+						})
+
+						var setSelected=function(value){
+							console.log(value);
+							var buttons=element.find("button");
+							console.log(buttons);
+							buttons.removeClass("btn-primary");
+							for(var i=0;i<buttons.length; i++){
+								console.log(i);
+								console.log(buttons.eq(i).text());
+								if(buttons.eq(i).text()==value){
+									
+									buttons.eq(i).addClass("btn-primary");
+								}
+							}
+						}
+						ctrl.$render=function(){
+							setSelected(ctrl.$viewValue || "Not Sure");
+						}
+					}
+				}
+
+				
+			})
+			.controller("defaultCtrl", function($scope){
+				//$scope.name="hello";
+				$scope.dataValue="Not Sure";
+			})
+			
+	</script>
+</head>
+<body ng-controller="defaultCtrl">
+	<div>
+		<tri-button ng-model="dataValue" ></tri-button>
+	</div>
+	<div class="well">
+		Value: 
+		<select ng-model="dataValue">
+			<option>Yes</option>
+			<option>No</option>
+			<option>Not Sure</option>
+		</select>
+	</div>
+
+	
+</body>
+</html>

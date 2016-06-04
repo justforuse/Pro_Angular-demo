@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<link href="../bootstrap.css" rel="stylesheet" />
+	<link href="../bootstrap-theme.css" rel="stylesheet" />
+	<script id="scopeTemplate">
+		<div class="panel-body">
+			<p>Name: {{local}}, City: {{cityFn({nameVal : local})}} </p>	
+		</div>
+	</script>
+	<script>
+		angular.module("exampleApp", [])
+			.directive("scopeDemo", function(){
+				return {
+					template:function(){
+						return angular.element(
+							document.querySelector("#scopeTemplate")).html();
+					},
+					scope:{
+						local:"=nameprop",
+						cityFn:"&city"
+					}
+				}
+
+				
+			})
+			.controller("scopeCtrl", function($scope){
+				//$scope.name="hello";
+				$scope.data={
+					name:"Allen",
+					defaultCity:"Beijing"
+				};
+				$scope.getCity=function(name){
+					return name == "Allen" ? $scope.data.defaultCity : "Unknown";
+				}
+			})
+			
+	</script>
+</head>
+<body ng-controller="scopeCtrl">
+	{{data}}
+	<div class="panel panel-default">
+		<div class="panel-body">
+			Direct Binding: <input ng-model="data.name">
+		</div>
+		<div class="panel-body" scope-demo nameprop="data.name" city="getCity(nameVal)"></div>
+	
+	</div>
+	
+</body>
+</html>
