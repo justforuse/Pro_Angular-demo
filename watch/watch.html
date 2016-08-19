@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular/angular.js"></script>
+	<script src="../jquery.js"></script>
+	<script>
+	angular.module("app", [])
+		.controller("ctrl", function($scope) {
+			$scope.o = {
+				name: "allen",
+				age: 21
+			}
+
+			$scope.$watch('o', function() {
+				console.log("changed!!");
+			}, true)
+			//console.log($(".p").css("width"));
+			$scope.width = $(".p").css("width");
+
+			$scope.$watch('width', function(){
+				console.log("change width");
+			})
+		})
+	</script>
+</head>
+
+<body ng-controller="ctrl">
+	<input type="text" ng-model="o.name">
+	<input type="text" ng-model="o.age">
+	<p class="p">{{o}}</p>
+	<p>{{width}}</p>
+</body>
+
+</html>

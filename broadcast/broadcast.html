@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular/angular.js"></script>
+	<script>
+	angular.module("app", [])
+		.controller("child", function($scope) {
+			$scope.$on("parentChange", function(e, m) {
+				$scope.change = "changed";
+				$scope.child = m;
+			})
+		})
+		.controller("ctrl", function($scope) {
+			$scope.$watch("parent", function(n, o) {
+				if (n == o) {
+					return;
+				}
+				$scope.$emit("parentChange", n)
+			})
+		})
+	</script>
+</head>
+
+<body>
+	<div ng-controller="ctrl">
+		Parent: {{parent}}
+		<input type="text" ng-model="parent">
+		
+		<div ng-controller="child">
+			{{change}} Child: {{child}}
+		</div>
+	</div>
+</body>
+
+</html>

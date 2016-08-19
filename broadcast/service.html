@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular/angular.js"></script>
+	<script>
+	angular.module("app", [])
+		.service("myServive", function($rootScope) {
+			return {
+				change: function(n) {
+					$rootScope.$broadcast("valueChange", n);
+
+				}
+			}
+		})
+		.controller("bro1", function($scope, myServive) {
+			$scope.$watch("value1", function(n) {
+				myServive.change(n);
+			})
+
+			$scope.$on("valueChange", function(e, m) {
+				console.log("value1");
+				$scope.value1 = m;
+			})
+		})
+		.controller("bro2", function($scope, myServive) {
+			$scope.$watch("value2", function(n) {
+				myServive.change(n);
+			})
+
+			$scope.$on("valueChange", function(e, m) {
+				console.log("value2");
+				$scope.value2 = m;
+			})
+		})
+	</script>
+</head>
+
+<body>
+	<div ng-controller="bro1">
+		<h3> value1:</h3>
+		<input type="text" ng-model="value1">
+	</div>
+	<div ng-controller="bro2">
+		<h3>value2:</h3>
+		<input type="text" ng-model="value2">
+	</div>
+</body>
+
+</html>

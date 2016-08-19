@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular/angular.js"></script>
+	<script>
+	angular.module("app", [])
+		.controller("ctrl", function($scope) {
+			$scope.value = 1;
+
+			$scope.func = function(v) {
+				console.log(v);
+				return true
+			}
+			$scope.$watch(function() {
+				return $scope.value
+			}, function() {
+				console.log("change");
+			})
+
+		})
+	</script>
+</head>
+
+<body ng-controller="ctrl">
+	<input type="text" ng-model="value">
+	<p>{{value}}</p>
+	<p ng-show="func(value)">aaa</p>
+</body>
+
+</html>
