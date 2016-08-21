@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<link href="../bootstrap.css" rel="stylesheet" />
+	<link href="../bootstrap-theme.css" rel="stylesheet" />
+	
+	<script>
+		angular.module("exampleApp", [])
+			
+			.controller("defaultCtrl", function($scope, $interval){
+				//$scope.name="hello";
+				$interval(function(){
+					$scope.time = new Date().toString();
+				}, 1000);
+				
+			})
+			
+	</script>
+</head>
+<body ng-controller="defaultCtrl">
+	<div class="panel panel-def">
+		<h4 class="panel-heading">Time</h4>
+		<div class="panel-body">
+			The time is {{time}}
+		</div>
+	</div>
+</body>
+</html>

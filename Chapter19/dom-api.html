@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<link href="../bootstrap.css" rel="stylesheet" />
+	<link href="../bootstrap-theme.css" rel="stylesheet" />
+	
+	<script>
+		angular.module("exampleApp", [])
+			
+			.controller("defaultCtrl", function($scope, $window, $document){
+				//$scope.name="hello";
+				$document.find("button").on("click", function(e){
+					$window.alert(e.target.innerText);
+				})
+				
+			})
+			
+	</script>
+</head>
+<body ng-controller="defaultCtrl" class="well">
+	<button class="btn btn-primary">Click</button>
+	
+</body>
+</html>

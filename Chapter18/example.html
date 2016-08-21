@@ -10,7 +10,9 @@
 
 	<script>
 		angular.module("exampleApp", ["customDirectives", "customServices"])
-			
+			// .config(function(logServiceProvider){
+			// 	logServiceProvider.debugEnabled(true).messageCountEnabled(false);
+			// })
 			.controller("defaultCtrl", function($scope, logService){
 				$scope.data={
 					cities:["London", "New York", "Paris"],
@@ -18,13 +20,13 @@
 				};
 				$scope.$watch("data.totalClicks", function(newVal){
 					logService.log("Total click count: " + newVal);
-					console.log("Total click count: " + newVal);
+					//console.log("Total click count: " + newVal);
 				})
 			})
 			
 	</script>
 	<script src="directives.js"></script>
-	<script src="services.js"></script>
+	<script src="factory.js"></script>
 </head>
 <body ng-controller="defaultCtrl">
 	<div class="well">

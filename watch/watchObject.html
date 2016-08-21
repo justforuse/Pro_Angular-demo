@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+</head>
+<body>
+	<div ng-controller="mainCtrl">
+		<input id="myText" type="text" ng-model="person.name"/>
+		<h2>{{person}}</h2>
+		<h2>Status: {{status}}</h2>
+	</div>
+	<script>
+	angular.module('myApp', [])
+		.controller('mainCtrl', function ($scope) {
+			$scope.person = {
+				name:"allen",
+				age:21
+			}
+			
+			$scope.$watch("person", function(n, o){
+				if(n == o){
+					return;
+				}
+				$scope.status = "changed";
+			},true)
+	})
+</script>
+</body>
+</html>

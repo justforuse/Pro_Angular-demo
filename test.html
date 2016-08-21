@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="angular.js"></script>
+	<script type="text/javascript">
+		angular.module("exampleApp", [])
+			.controller("firstCtrl", function($scope){
+				$scope.firstData="first";
+			})
+			.controller("secondCtrl", function($scope){
+				$scope.secondData="second";
+			})
+	</script>
+</head>
+<body>
+	<div ng-controller="firstCtrl">
+		<input ng-model="firstData">
+		<p>{{firstData}}</p>
+	</div>
+	<div ng-controller="secondCtrl">
+		<h4 ng-bind="secondData"></h4>
+		<p>{{secondData}}</p>
+	</div>
+</body>
+</html>

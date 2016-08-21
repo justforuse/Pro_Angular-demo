@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<link href="../bootstrap.css" rel="stylesheet" />
+	<link href="../bootstrap-theme.css" rel="stylesheet" />
+	
+	<script>
+		angular.module("exampleApp", [])
+			.factory("$exceptionHandler", function($log){
+				return function(exception, cause){
+					$log.error("Message: " + exception.message + " (Cause: " + cause + ")");
+				}
+			})
+			.controller("defaultCtrl", function($scope, $exceptionHandler){
+				//$scope.name="hello";
+				$scope.throwEx=function(){
+					try{
+						throw new Error("Triggered Exception");
+					}catch(ex){
+						$exceptionHandler(ex, "Button click");
+					}
+					
+				}
+				
+			})
+			
+	</script>
+</head>
+<body ng-controller="defaultCtrl">
+	<div class="panel panel-default">
+		
+		<div class="panel-body">
+			<button class="btn btn-primary" ng-click="throwEx()">Click</button>
+		</div>
+	</div>
+</body>
+</html>
