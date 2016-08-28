@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<script type="text/javascript">
+		angular.module("app", [])
+			.controller("parent", function($scope){
+				$scope.parent="Hello, allen";
+				$scope.child="child.html";
+			})
+			.controller("child", function($scope){
+
+			})
+	</script>
+</head>
+<body ng-controller="parent">
+	{{parent}}
+	<div ng-include="child">
+	</div>
+</body>
+</html>

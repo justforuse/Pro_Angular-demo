@@ -1,0 +1,5 @@
+<label for="{{'check_' + $index}}" ng-class="{list:true, selected:data[$index].select}" ng-repeat = "item in data">
+	<input id="{{'check_' + $index}}" type="checkbox" ng-model="data[$index].select">
+	{{item.name}}
+	
+</label>

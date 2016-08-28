@@ -4,10 +4,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<script src="../angular/angular.js"></script>
+	<script src="../angular.js"></script>
 	<script>
 	angular.module("app", [])
-		.controller("ctrl", function($scope) {
+		.controller("parent", function($scope) {
 			$scope.$on("childChange", function(e, m) {
 				$scope.change = "changed";
 				$scope.parent = m
@@ -24,7 +24,7 @@
 	</script>
 </head>
 
-<body ng-controller="ctrl">
+<body ng-controller="parent">
 	{{change}} Parent: {{parent}}
 	<div ng-controller="child">
 		Child: {{child}}

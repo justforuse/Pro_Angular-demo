@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		textarea{
+			width:400px;
+			height:150px;
+			resize:none;
+
+			font-size:16px;
+		}
+	</style>
+	<script src="../angular.js"></script>
+	<script type="text/javascript">
+		angular.module("app", [])
+		.controller("ctrl", function($scope){
+			var data = ["123", "asdfa sadfas", "as,sdf sdf"];
+			$scope.text = data.join("\n");
+
+			$scope.getTextline = function(){
+				if(!$scope.text){
+					console.log("required!!");
+					return false;
+				}
+				var arr = (function(str){
+					var t = str.split("\n");
+					for (var i = 0; i< t.length; i++){
+						if("" == t[i]){
+							t.splice(i, 1);
+						}
+					}
+					return t;
+				})($scope.text);
+				console.log(arr);
+			}
+		})
+		
+	</script>
+
+</head>
+<body>
+	<div ng-controller="ctrl">
+		<textarea ng-model="text"></textarea>
+		<button ng-click="getTextline()">OK</button>
+		{{text}}
+	</div>
+</body>
+</html>
