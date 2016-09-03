@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="mainCtrl">
+<head >
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" ng-href="{{theme.value}}.css">
+
+	<script src="../angular.js"></script>
+	<style type="text/css">
+		h1{
+			font-style:italic;
+		}
+	</style>
+	<script type="text/javascript">
+		angular.module("app", [])
+			.controller("mainCtrl", function($scope){
+				$scope.options = [
+					{
+						name:"蓝色",
+						value:"blue"
+					},
+					{
+						name:"红色",
+						value:"red"
+					}
+				];
+
+				$scope.theme = $scope.options[0];
+			})
+	</script>
+</head>
+<body>
+	<select ng-model="theme" ng-options="c.name for c in options">
+	</select>
+	<h1>Welcome</h1>
+	<ul>
+		<li>Home</li>
+		<li>About</li>
+		<li>Contact</li>
+	</ul>
+</body>
+</html>
