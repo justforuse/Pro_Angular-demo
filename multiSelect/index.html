@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
+	<script src="../jquery.js"></script>
+	<script src="../bootstrap/js/bootstrap.js"></script>
+	<style type="text/css">
+	label {
+		display: block;
+		margin-top: 3px;
+	}
+	
+	label.list:hover {
+		cursor: pointer;
+		background-color: red;
+	}
+	
+	label.selected {
+		background-color: red;
+	}
+	</style>
+	<script src="../angular.js"></script>
+	<script type="text/javascript">
+	angular.module("app", [])
+		.controller("ctrl", function($scope) {
+			jQuery(".dropdown-menu *").click(function(e){
+				e.stopPropagation();
+			});
+
+			data = {
+				name: "选项1",
+				value: "item1",
+				select: false
+			}
+
+			$scope.selectList = [{
+				name: "选项1",
+				value: "item1",
+				select: false
+			}, {
+				name: "选项2",
+				value: "item2",
+				select: true
+			}];
+			$scope.$watch("selectList", function(n, o) {
+
+				$scope.result = (function(arr) {
+					var t = [];
+					for (var i = 0; i < arr.length; i++) {
+						if (arr[i].select) {
+							t.push(arr[i].name);
+						}
+					}
+					if (!t.length) {
+						t.push("--请选择--");
+					}
+					return t.join(",");
+				})($scope.selectList);
+			}, true)
+
+		})
+		.directive("multiSelect", function() {
+			return {
+				scope: {
+					data: "=multiSelect"
+				},
+				templateUrl: "option.html",
+				link: function(scope, element, attr, controller) {
+					// scope.toggleClass = function($event, $index) {
+
+					// 	console.log($index);
+					// 	scope.data[$index].select = !scope.data[$index].select;
+					// }
+
+					// scope.toggleCheck = function($event){
+					// 	console.log($event);
+					// 	var check = $event.target;
+					// 	if(check.checked){
+					// 		console.log("checked");
+					// 	}else{
+					// 		console.log("not checked");
+					// 	}
+					// 	$event.stopPropagation();
+					// }
+				}
+			}
+		})
+	</script>
+</head>
+
+<body>
+	<div ng-controller="ctrl">
+
+		<div class="dropdown">
+			<span class="dropdown-toggle", data-toggle="dropdown">
+				<button ng-bind="result"> </button>
+				<span class="caret"></span>
+			</span>
+			<ul class="dropdown-menu">
+				<li>
+					<div multi-select="selectList"></div>
+				</li>
+			</ul>
+		</div>
+		<!-- <p>{{selectList}}</p>
+		<p>{{result}}</p> -->
+	</div>
+</body>
+
+</html>

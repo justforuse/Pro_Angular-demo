@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<script src="../angular/angular.js"></script>
+	<script src="../angular.js"></script>
 	<script>
 	angular.module("app", [])
 		.controller("child", function($scope) {
@@ -13,19 +13,19 @@
 				$scope.child = m;
 			})
 		})
-		.controller("ctrl", function($scope) {
+		.controller("parent", function($scope) {
 			$scope.$watch("parent", function(n, o) {
 				if (n == o) {
 					return;
 				}
-				$scope.$emit("parentChange", n)
+				$scope.$broadcast("parentChange", n)
 			})
 		})
 	</script>
 </head>
 
 <body>
-	<div ng-controller="ctrl">
+	<div ng-controller="parent">
 		Parent: {{parent}}
 		<input type="text" ng-model="parent">
 		
