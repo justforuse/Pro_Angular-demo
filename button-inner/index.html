@@ -5,19 +5,7 @@
 	<title></title>
 	<link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
 	<script src="../angular.js"></script>
-	<script>
-		angular.module("app", [])
-			.controller("ctrl", function($scope){
-				$scope.sayButton = function(e){
-					alert("button");
-					e.stopPropagation();
-				};
-				$scope.saySpan = function(e){
-					alert("span");
-					e.stopPropagation();
-				};
-			})
-	</script>
+	
 	<style>
 		.star{
 			padding:10px;
@@ -26,6 +14,19 @@
 	</style>
 </head>
 <body ng-controller="ctrl">
+	<script>
+		angular.module("app", [])
+			.controller("ctrl", function($scope){
+				$scope.sayButton = function(e){
+					alert('button');
+					e.stopPropagation();
+				};
+				$scope.saySpan = function(e){
+					alert('span');
+					e.stopPropagation();
+				};
+			})
+	</script>
 	<div class="btn btn-default btn lg" ng-click="sayButton($event)">
 		Button
 		<span class="star glyphicon glyphicon-star" ng-click="saySpan($event)"></span>

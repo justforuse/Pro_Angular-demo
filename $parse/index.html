@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<script type="text/javascript">
+		angular.module("app", [])
+			.controller("ctrl", function($scope, $parse){
+				var getter = $parse("user.name");
+				var setter = getter.assign;
+				var context = {user:{name:"allen"}};
+				console.log(getter(context));
+				setter(context, "justforuse");
+				console.log(getter(context));
+			})
+	</script>
+</head>
+<body>
+	<div ng-controller="ctrl">
+		
+	</div>
+</body>
+</html>
