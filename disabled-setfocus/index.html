@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<script>
+	angular.module("app", [])
+		.controller("ctrl", function($scope) {
+			$scope.data = [{
+				name: "aaa",
+				type: "string"
+			}, {
+				name: "bbb",
+				type: "int"
+			}, {
+				name: "ccc",
+				type: "float"
+			}];
+
+			$scope.init = function() {
+				$scope.dim = $scope.data[0];
+			}
+
+			$scope.changeDim = function(i){
+				$scope.dim = i;
+			}
+			
+		})
+		.directive("setFocus", function(){
+			return {
+				link:function(scope, element, attrs){
+					scope.$watch("dim", function(n, o){
+						element.focus();
+					}, true)
+				}
+			}
+		})
+	</script>
+</head>
+
+<body ng-init="init()" ng-controller="ctrl">
+	<ul>
+		<li ng-repeat="item in data" ng-click="dim = item">
+			<a ng-click="changeDim(item)">{{item.name}}</a>
+		</li>
+	</ul>
+	<input type="text" id="name" ng-disabled="dim.type == 'string'" ng-model="dim.name" set-focus>
+</body>
+
+</html>
