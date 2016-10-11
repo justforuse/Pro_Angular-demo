@@ -6,41 +6,62 @@
 	<title></title>
 	<script src="../../jquery.js"></script>
 	<script src="../../jquery-ui.js"></script>
-	<script src="../../angular/angular.js"></script>
+	<script src="../../angular.js"></script>
 	<script src="ui-sortable/src/sortable.js"></script>
 	<script>
 	angular.module("app", ["ui.sortable"])
-		.controller("sortCtrl", function($scope) {
+		.controller("sortCtrl", function($scope, $timeout) {
+			$scope.cannotSort = false;
 			$scope.data = [{
 				"name": "allen",
 				"age": 21,
-				i: 1
+				"i": 0
 			}, {
 				"name": "bob",
 				"age": 18,
-				i: 0
+				"i": 1
 			}, {
 				"name": "curry",
 				"age": 25,
-				i: 2
+				"i": 2
 			}, {
 				"name": "david",
 				"age": 30,
-				i: 3
+				"i": 3
 			}];
 
 			$scope.sortableOptions = {
 				uiOrderBy: "age",
 				// 数据有变化
 				update: function(e, ui) {
+
 					console.log("update");
+					console.log($scope.data);
+					var resArr = [];
+					for (var i = 0; i < $scope.data.length; i++) {
+						resArr.push($scope.data[i].i);
+					}
+					console.log(resArr);
+					$scope.cannotSort = true;
+
+					$timeout(function() {
+						$scope.cannotSort = false;
+					}, 20000)
+
 				},
 
 				// 完成动作
 				stop: function(e, ui) {
+					var resArr = [];
+					for (var i = 0; i < $scope.data.length; i++) {
+						resArr.push($scope.data[i].i);
+					}
+					console.log(resArr);
+					// console.log($scope.data);
 					console.log("stop");
 
-				}
+				},
+				items: "li:not(.not-sortable)"
 			}
 		})
 		.filter("myOrder", function() {
@@ -74,13 +95,17 @@
 		padding: 5px;
 		border: 1px solid #ddd;
 	}
+	
+	li.not-sortable {
+		color: #999;
+	}
 	</style>
 </head>
 
 <body>
 	<div ng-controller="sortCtrl">
 		<ul ui-sortable="sortableOptions" ng-model="data">
-			<li ng-repeat="item in data | orderBy :'i' ">
+			<li ng-class="{ 'not-sortable': cannotSort}" ng-repeat="item in data ">
 				<span>{{item.name}}, {{item.age}}</span>
 			</li>
 		</ul>
