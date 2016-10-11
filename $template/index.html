@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<script>
+	angular.module("app", [])
+		.run(function($templateCache) {
+			$templateCache.put("hello.html", "<div style='color:red;'> hello world <div ng-transclude></div></div>")
+		})
+		.directive("hello", function($templateCache) {
+			return {
+				restrict: "AE",
+				template: $templateCache.get("hello.html"),
+				replace: true,
+				transclude:true
+			}
+		})
+	</script>
+</head>
+
+<body>
+	<hello></hello>
+	<hr>
+	<div hello></div>
+	<hr>
+	<div hello>
+		nihaonihao
+	</div>
+</body>
+
+</html>

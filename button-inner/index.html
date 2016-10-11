@@ -17,12 +17,21 @@
 	<script>
 		angular.module("app", [])
 			.controller("ctrl", function($scope){
+				$scope.result="";
 				$scope.sayButton = function(e){
+<<<<<<< Updated upstream
 					alert('button');
 					e.stopPropagation();
 				};
 				$scope.saySpan = function(e){
 					alert('span');
+=======
+					$scope.result+="button";
+					e.stopPropagation();
+				};
+				$scope.saySpan = function(e){
+					$scope.result+="span";
+>>>>>>> Stashed changes
 					e.stopPropagation();
 				};
 			})
@@ -31,6 +40,6 @@
 		Button
 		<span class="star glyphicon glyphicon-star" ng-click="saySpan($event)"></span>
 	</div>
-
+	result:{{result}}
 </body>
 </html>

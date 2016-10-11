@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<script>
+	angular.module("app", [])
+		.directive("expander", function() {
+			return {
+				transclude: true,
+				scope: {
+					title: "@"
+				},
+				template: "<div>" 
+							+ "<div ng-click='toggle()'>{{title}}</div>" 
+							+ "<div ng-show = 'show' ng-transclude></div>" 
+						+ "</div>",
+				link: function(scope, element, attr, ctrl) {
+					scope.show = false;
+					scope.toggle = function() {
+						scope.show = !scope.show;
+					}
+				}
+			}
+		})
+		.controller("ctrl", function($scope) {
+
+		})
+	</script>
+</head>
+
+<body>
+	<div expander title="click to show">
+		<div>some words</div>
+	</div>
+</body>
+
+</html>

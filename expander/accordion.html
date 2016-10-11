@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		.title{
+			width:500px;
+			height:30px;
+			background-color: lime;
+		}
+		.content{
+			width:500px;
+		}
+	</style>
+	<script src="../angular.js"></script>
+	<script>
+		angular.module("app", [])
+			.directive("accordion", function(){
+				return {
+					transclude:true,
+					template:"<div ng-transclude></div>",
+					controller:function(){
+						var expanders = [];
+						this.addExpander = function(expander){
+							expanders.push(expander);
+						};
+						this.getOpened = function(selectedExpander){
+							angular.forEach(expanders, function(expander){
+								if(expander != selectedExpander){
+									expander.show = false;
+								}
+							})
+						}
+					}
+				}
+			})
+			.directive("expander", function(){
+				return {
+					transclude: true,
+					scope: {
+						title: "@"
+					},
+					require:"?^accordion",
+					template: "<div>" 
+								+ "<div class='title' ng-click='toggle()'>{{title}}</div>" 
+								+ "<div class='content' ng-show = 'show' ng-transclude></div>" 
+							+ "</div>",
+					link: function(scope, element, attr, ctrl) {
+						scope.show = false;
+						ctrl.addExpander(scope);
+						scope.toggle = function() {
+							scope.show = !scope.show;
+							ctrl.getOpened(scope);
+						}
+					}
+
+				}
+			})
+			.controller("ctrl", function($scope){
+				$scope.expanders = [
+					{
+						"title":"click to show first",
+						"text":"first contents"
+					},
+					{
+						"title":"click to show second",
+						"text":"second contents"
+					},
+					{
+						"title":"click to show third",
+						"text":"third contents"
+					}
+				]
+			})
+	</script>
+</head>
+<body ng-controller = "ctrl">
+	<accordion>
+		<expander ng-repeat = "expander in expanders" title="expander.title">
+			{{expander.text}}
+		</expander>
+	</accordion>
+</body>
+</html>
