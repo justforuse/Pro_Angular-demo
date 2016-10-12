@@ -10,7 +10,7 @@
 	<script src="ui-sortable/src/sortable.js"></script>
 	<script>
 	angular.module("app", ["ui.sortable"])
-		.controller("sortCtrl", function($scope, $timeout) {
+		.controller("sortCtrl", function($scope, $timeout, orderByFilter) {
 			$scope.cannotSort = false;
 			$scope.data = [{
 				"name": "allen",
@@ -31,53 +31,33 @@
 			}];
 
 			$scope.sortableOptions = {
-				uiOrderBy: "age",
 				// 数据有变化
 				update: function(e, ui) {
 
 					console.log("update");
-					console.log($scope.data);
-					var resArr = [];
-					for (var i = 0; i < $scope.data.length; i++) {
-						resArr.push($scope.data[i].i);
-					}
-					console.log(resArr);
-					$scope.cannotSort = true;
-
 					$timeout(function() {
-						$scope.cannotSort = false;
-					}, 20000)
+						var resArr = [];
+						for (var i = 0; i < $scope.data.length; i++) {
+							resArr.push($scope.data[i].i);
+						}
+						console.log(resArr);
+					})
+
 
 				},
 
 				// 完成动作
 				stop: function(e, ui) {
-					var resArr = [];
-					for (var i = 0; i < $scope.data.length; i++) {
-						resArr.push($scope.data[i].i);
-					}
-					console.log(resArr);
-					// console.log($scope.data);
-					console.log("stop");
+					//do nothing
+				}
+			}
 
-				},
-				items: "li:not(.not-sortable)"
-			}
-		})
-		.filter("myOrder", function() {
-			return function(value) {
-				console.log(value);
-				value.sort(function(a, b) {
-					if (a.age > b.age) {
-						return 1;
-					} else if (a.age == b.age) {
-						return 0;
-					} else {
-						return -1;
-					}
-				})
-				return value;
-			}
+			var dataWatcher = $scope.$watchCollection("data", function(){
+				console.log("watcher")
+				$scope.data = orderByFilter($scope.data, ["age"]);
+				//销毁监听器
+				dataWatcher();
+			})
 		})
 	</script>
 	<style>
@@ -95,17 +75,13 @@
 		padding: 5px;
 		border: 1px solid #ddd;
 	}
-	
-	li.not-sortable {
-		color: #999;
-	}
 	</style>
 </head>
 
 <body>
 	<div ng-controller="sortCtrl">
 		<ul ui-sortable="sortableOptions" ng-model="data">
-			<li ng-class="{ 'not-sortable': cannotSort}" ng-repeat="item in data ">
+			<li ng-repeat="item in data ">
 				<span>{{item.name}}, {{item.age}}</span>
 			</li>
 		</ul>
