@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<script>
+	angular.module("app", [])
+		.controller("ctrl", function() {
+			angular.element("h3").bind("click", function(e) {
+				angular.element(document).find("h3").toggleClass("red");
+			})
+		})
+	</script>
+	<style>
+	.red {
+		color: red;
+	}
+	</style>
+</head>
+
+<body>
+	<div ng-controller="ctrl">
+		<h3>This is h3</h3>
+		<h4>This is h4</h4>
+	</div>
+</body>
+
+</html>

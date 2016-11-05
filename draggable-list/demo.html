@@ -49,7 +49,8 @@
 				// 完成动作
 				stop: function(e, ui) {
 					//do nothing
-				}
+				},
+				items: "li:not(.not-sortable)"
 			}
 
 			var dataWatcher = $scope.$watchCollection("data", function(){
@@ -81,7 +82,7 @@
 <body>
 	<div ng-controller="sortCtrl">
 		<ul ui-sortable="sortableOptions" ng-model="data">
-			<li ng-repeat="item in data ">
+			<li ng-class="{'not-sortable': true}" ng-repeat="item in data" >
 				<span>{{item.name}}, {{item.age}}</span>
 			</li>
 		</ul>

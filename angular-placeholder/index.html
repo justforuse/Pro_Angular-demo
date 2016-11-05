@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../angular.js"></script>
+	<script src="dist/angular-shims-placeholder.js"></script>
+	<script>
+		angular.module("app", ["ng.shims.placeholder"])
+			.controller("ctrl", function($scope){
+				$scope.hint = "hello world";
+			})
+	</script>
+</head>
+<body ng-controller="ctrl">
+	<input type="text" placeholder="{{hint | uppercase}}">
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../angular.js"></script>
+	<script>
+		angular.module("app", [])
+			.controller("ctrl", function($scope, $element){
+				console.log($element.find(".my-span"));
+			})
+	</script>
+</head>
+<body>
+	<div ng-controller="ctrl">
+		<button>
+			<span class="my-span">Button</span>
+		</button>
+	</div>
+</body>
+</html>

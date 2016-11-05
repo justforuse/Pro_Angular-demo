@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../../angular.js"></script>
+	<script src="../../../angular/angular-animate.js"></script>
+	<script src="../../../angular/angular-sanitize.js"></script>
+	<script src="../ui-bootstrap.js"></script>
+	<link rel="stylesheet" href="../bootstrap.css">
+	<script>
+	angular.module("app", ['ngAnimate', 'ngSanitize', 'ui.bootstrap'])
+		.controller("ctrl", function() {
+
+		})
+	</script>
+</head>
+
+<body>
+	<div class="btn-group" uib-dropdown keyboard-nav>
+		<!-- <div class="input-group" uib-dropdown-toggle>
+			<input type="text">
+		</div> -->
+		<input type="text" uib-dropdown-toggle>
+		<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+			<li role="menuitem"><a href="#">Action</a></li>
+			<li role="menuitem"><a href="#">Another action</a></li>
+			<li role="menuitem"><a href="#">Something else here</a></li>
+			<li class="divider"></li>
+			<li role="menuitem"><a href="#">Separated link</a></li>
+		</ul>
+	</div>
+</body>
+
+</html>
