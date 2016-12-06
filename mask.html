@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+	<title></title>
+	<script src="../angular.js"></script>
+	<script>
+	angular.module("app", [])
+		.controller("MainController", function($scope) {
+			$scope.foo = 1;
+			$scope.bar = {
+				innerProperty: 2
+			}
+		})
+	</script>
+</head>
+
+<body>
+	<div ng-controller="MainController">
+		<p>OUTER SCOPE:</p>
+		<p>{{foo}}</p>
+		<p>{{bar.innerProperty}}</p>
+			<div ng-if="foo "> 
+				<p>INNER SCOPE</p>
+				<p>{{foo}}</p>
+				<p>{{bar.innerProperty}}</p>
+				<button ng-click="foo=2">Set primitive</button>
+				<button ng-click="bar.innerProperty=3">Mutate object</button>
+			</div>
+	</div>
+</body>
+
+</html>
