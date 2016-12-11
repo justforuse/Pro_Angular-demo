@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+<head>
+	<title></title>
+	<script src="../angular.js"></script>
+	<script>
+		angular.module("app", [])
+			.controller("MainController", function($scope){
+				this.foo =1;
+				var that = this;
+				var setBar = function(){
+					that.bar = {
+						someProperty:2
+					}
+				}
+				// var MC = this;
+				setBar.call(this);
+			})
+	</script>
+</head>
+<body>
+<div ng-controller="MainController as MC">
+		<p>OUTER SCOPE:</p>
+		<p>{{MC.foo}}</p>
+		<p>{{MC.bar.someProperty}}</p>
+			<div ng-if="true"> 
+				<p>INNER SCOPE</p>
+				<p>{{MC.foo}}</p>
+				<p>{{MC.bar.someProperty}}</p>
+				<button ng-click="MC.foo=2">Set primitive</button>
+				<button ng-click="MC.bar.someProperty=3">Mutate object</button>
+			</div>
+	</div>
+</body>
+</html>
