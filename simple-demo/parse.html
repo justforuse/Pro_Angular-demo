@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../angular.js"></script>
+	<script>
+		angular.module("app", [])
+			.controller("MainController", function($scope, $parse){
+				$scope.$watch("exp", function(n, o, scope){
+					if(n !== o){
+						var parseFunc = $parse("exp");
+						$scope.parsedValue = parseFunc(scope);
+					}
+				})
+			})
+	</script>
+</head>
+<body>
+	<div ng-controller="MainController">
+		<input type="text" ng-model="exp">
+		{{parsedValue}}
+	</div>
+</body>
+</html>

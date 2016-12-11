@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../angular.js"></script>
+	<script>
+	angular.module("app", [])
+		.run(function($rootScope) {
+			$rootScope.param = {
+				name: "world"
+			};
+		})
+		.controller("ctrl", function($scope) {
+			$scope.name = "allen";
+		})
+	</script>
+</head>
+
+<body>
+	<div ng-controller="ctrl">
+		hello {{param.name}}
+	</div>
+</body>
+
+</html>
