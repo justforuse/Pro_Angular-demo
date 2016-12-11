@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../angular.js"></script>
+	<script>
+		angular.module("app",[])
+			.controller("ctrl", function($scope){
+
+			})
+	</script>
+</head>
+<body>
+	<label>
+		<input type="radio" ng-model="sex" value="male">
+		<span>男</span>
+	</label>
+	<label>
+		<input type="radio" ng-model="sex" value="female">
+		<span>女</span>
+	</label>
+	<label>
+		<input type="radio" ng-model="aaa" value="female">
+		<span>女</span>
+	</label>
+	{{sex}}
+</body>
+</html>

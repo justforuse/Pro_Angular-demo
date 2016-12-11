@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../angular.js"></script>
+	<script>
+		angular.module("app", [])
+			.controller("MainController", function($scope, $window){
+				$window.onbeforeunload = function(){
+					console.log("before unload");
+					return "byebye";
+				}
+				$window.onunload = function(){
+					console.log("unload");
+					return "byebye";
+				}
+				$window.onload = function(){
+					console.log("load");
+				}
+			})
+	</script>
+</head>
+<body>
+	<div ng-controller="MainController">
+		
+	</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../angular.js"></script>
+	<script>
+		angular.module("app", [])
+			.controller("ParentController", function($scope){
+				$scope.person = {
+					greet : true
+				}
+			})
+			.controller("ChildController", function($scope){
+				$scope.addAttr = function(){
+					$scope.person.name = "Allen"
+				}
+			})
+	</script>
+</head>
+<body>
+	<div ng-controller="ParentController">
+		<div ng-controller="ChildController">
+			<a ng-click="addAttr()">Add</a>
+		</div>
+		{{person}}
+	</div>
+</body>
+</html>

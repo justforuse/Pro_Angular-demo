@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../angular.js"></script>
+	<script src="../jquery.js"></script>
+	<script src="jquery.nicescroll.js"></script>
+	<script src="angular-nicescroll.js"></script>
+	<script>
+		angular.module("app", ["angular-nicescroll"])
+			.controller("ctrl", function($scope){
+
+			})
+	</script>
+	<style>
+		.my-scroll{
+			width:100px;
+			max-height: 200px;
+			border:1px solid #aaa;
+			display: inline-block;
+		}
+		.my-scroll p{
+			padding:0 10px;
+		}
+	</style>
+</head>
+<body>
+	<div ng-controller="ctrl" class="container">
+		<div class="my-scroll" ng-nicescroll nice-option>
+			<p>testtesttesttesttesttest</p>
+			<p>testtesttesttesttesttest</p>
+			<p>testtesttesttesttesttest</p>
+			<p>testtesttesttesttesttest</p>
+			<p>testtesttesttesttesttest</p>
+			<p>testtesttesttesttesttest</p>
+			<p>testtesttesttesttesttest</p>
+			<p>testtesttesttesttesttest</p>
+			<p>testtesttesttesttesttest</p>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../angular.js"></script>
+	<script src="../angular-ui-router.js"></script>
+	<script>
+		angular.module("app", ['ui.router'])
+			.config(function($stateProvider, $$urlRouterProvider){
+				$stateProvider
+					.state("part1",{
+						url:"/part1",
+						template:'<p>part1: {{name}}</p>',
+						
+					})
+					.state("part2",{
+						url:"/part2",
+						template:'<p>part2: {{name}}</p>',
+						
+
+					})
+				$urlRouterProvider.otherwise('/part1');
+			})
+			.service("myService", function(){
+				this.name = "hello world";
+			})
+			.controller("startCtrl", function($scope, myService){
+
+			})
+	</script>
+</head>
+<body ng-controller="mainCtrl">
+	<div ui-view></div>
+</body>
+</html>
