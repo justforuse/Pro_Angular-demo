@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../angular.js"></script>
+	<script src="../angular-messages.js"></script>
+	<script>
+	angular.module("app", ["ngMessages"])
+		.directive("ensureUnique", function($http) {
+			return {
+				require: "?^ngModel",
+				link: function(scope, element, attrs, ngModel) {
+
+					var url = attrs.ensureUnique;
+					if (!ngModel) {
+						return false;
+					}
+					ngModel.$parsers.push(function(val) {
+						if (!val || val.length == 0) {
+							return false;
+						}
+
+						ngModel.$setValidity("checkingAvailability", true);
+						ngModel.$setValidity("usernameAvailability", false);
+
+						$http({
+							method: "POST",
+							url: url,
+							data: {
+								username: val
+							}
+						}).then(function(r) {
+							console.log(r);
+						}, function(e) {
+							console.log(e);
+						})
+
+						return val;
+					})
+				}
+			}
+		})
+		.controller("MainController", function($scope) {
+			$scope.signup = {
+				username: ""
+			}
+		})
+	</script>
+</head>
+
+<body>
+	<div ng-controller="MainController">
+		<form name="signup_form" novalidate ng-submit="signupForm()">
+			<input type="text" name="username" ng-model="signup.username" required ng-min-length=3 ng-max-length=10 ensure-unique="check.php">
+			<div class="error" ng-messages=s ignup_form.username.$error>
+				<div ng-message="requried">
+					Required!!!
+				</div>
+				<div ng-message="checkingAvailability">
+					Checking...
+				</div>
+				<div ng-message="usernameAvailability">
+					Has been taken, please choose another.
+				</div>
+			</div>
+			<div>
+				<button type="submit">Submit</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

@@ -11,8 +11,10 @@
 				var setter = getter.assign;
 				var context = {user:{name:"allen"}};
 				console.log(getter(context));
+				console.log(context);
 				setter(context, "justforuse");
 				console.log(getter(context));
+				console.log(context);
 			})
 	</script>
 </head>

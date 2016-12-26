@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../angular.js"></script>
+	<script>
+	angular.module("app", [])
+		.config(function($interpolateProvider){
+			$interpolateProvider.startSymbol("@@");
+			$interpolateProvider.endSymbol("@@");
+		})
+		.controller("MainController", function($filter, $parse, $scope, $interpolate) {
+			$scope.$watch("text", function(n) {
+				if (n) {
+					var temp = $interpolate(n + 'haha');
+					$scope.preText = temp({
+						to: $scope.to
+					})
+				}
+			})
+
+			$scope.$watch("test", function(n, o, scope){
+				var parseFunc = $parse("test + 'Bazinga'");
+				$scope.parseTest = parseFunc(scope);
+			})
+
+			$scope.filterValue = $filter("currency")(123, "#");
+		})
+	</script>
+</head>
+
+<body>
+	<div ng-controller="MainController">
+		<input ng-model="to">
+		<textarea ng-model="text" cols="30" rows="10"></textarea>
+		@@preText@@
+		<hr>
+		<input type="text" ng-model="test" ng-trim="false">
+		@@parseTest@@
+		@@filterValue@@
+		<p>@@333 | currency:"#"@@</p>
+	</div>
+</body>
+
+</html>
