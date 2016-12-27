@@ -1,11 +1,14 @@
 <?php
-    $new_stuID = $_POST['new_stuID'];
-    //我试着返回布尔型的true和false但是均不成功，string型的就可以
-    if($new_stuID == '1234567'){
-        echo 'false';
+	$postData = file_get_contents('php://input', true);  
+	$obj=json_decode($postData);
+	// echo $obj->username;
+    // echo $username;
+    if($obj->username == '123'){
+        echo "exist";
     }
     else{
-        echo 'true';
+        echo "available";
     }
+
 
 ?>
