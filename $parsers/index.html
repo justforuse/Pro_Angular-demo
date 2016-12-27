@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="angular.js"></script>
+	<script src="angular-messages.js"></script>
+	<script>
+	angular.module("app", ["ngMessages"])
+		.directive("ensureUnique", function($http) {
+			return {
+				require: "?^ngModel",
+				link: function(scope, element, attrs, ngModel) {
+
+					var url = attrs.ensureUnique;
+					if (!ngModel) {
+						return false;
+					}
+					ngModel.$parsers.push(function(val) {
+						if (!val || val.length == 0) {
+							return false;
+						}
+
+						ngModel.$setValidity("checkingAvailability", false);
+						ngModel.$setValidity("usernameAvailability", true);
+
+						$http({
+							method: "POST",
+							url: url,
+							data: {
+								username: val
+							}
+						}).then(function(r) {
+							if ("exist" == r.data) {
+								ngModel.$setValidity("checkingAvailability", true);
+								ngModel.$setValidity("usernameAvailability", false);
+							} else {
+								ngModel.$setValidity("checkingAvailability", true);
+								ngModel.$setValidity("usernameAvailability", true);
+							}
+						}, function(e) {
+							console.log(e);
+						})
+
+						return val;
+					})
+				}
+			}
+		})
+		.controller("MainController", function($scope) {
+			$scope.signup = {
+				username: ""
+			}
+		})
+	</script>
+</head>
+
+<body>
+	<div ng-controller="MainController">
+		<form name="signup_form" novalidate ng-submit="signupForm()">
+			<input type="text" name="username" ng-model="signup.username" required ng-min-length=3 ng-max-length=10 ensure-unique="check.php">
+			<div class="error" ng-show="signup_form.$dirty" ng-messages="signup_form.username.$error" ng-messages-multiple>
+				<div ng-message="required">
+					Required!!!
+				</div>
+				<div ng-message="checkingAvailability">
+					Checking...
+				</div>
+				<div ng-message="usernameAvailability">
+					Has been taken, please choose another.
+				</div>
+			</div>
+			<div>
+				<button type="submit">Submit</button>
+			</div>
+			<p>{{signup_form.username.$error}}</p>
+		</form>
+	</div>
+</body>
+
+</html>

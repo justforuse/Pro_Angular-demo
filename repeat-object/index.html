@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../angular.js"></script>
+	<script>
+		angular.module("app", [])
+			.controller("MainController", function($scope){
+				$scope.data={
+					"dim1":"value1",
+					"dim2":"value2",
+					"dim3":"value3"
+				}
+			})
+	</script>
+</head>
+<body ng-controller="MainController">
+	<div ng-repeat="(key, value) in data">
+		{{key}} : {{value}}
+	</div>
+</body>
+</html>
