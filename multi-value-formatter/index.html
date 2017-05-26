@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../angular.js"></script>
+    <script src="./multi.value.formatter.js"></script>
+    <script>
+        angular.module("app", ["my.formatter"])
+            .controller("ctrl", function(){
+
+            })
+    </script>
+</head>
+<body>
+    <div>
+        <input type="text" ng-model="values" multi-value-formatter>
+    </div>
+    <p ng-bind="values"></p>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../angular.js"></script>
+    <script src="tmhDynamicLocale.js"></script>
+    <script>
+        angular.module('app', ['tmh.dynamicLocale'])
+            .config(function (tmhDynamicLocaleProvider) {
+                tmhDynamicLocaleProvider.localeLocationPattern('./angular-locale_{{locale}}.js');
+                tmhDynamicLocaleProvider.defaultLocale('zh-cn');
+            })
+            .controller('ctrl', function ($scope, tmhDynamicLocale) {
+                $scope.myDate = new Date();
+
+                $scope.change = function () {
+                    tmhDynamicLocale.set('en');
+                }
+            })
+    </script>
+</head>
+
+<body ng-controller="ctrl">
+    <button type="button" ng-click="change()">Change</button> {{myDate | date}}
+
+</body>
+
+</html>

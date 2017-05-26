@@ -7,16 +7,18 @@
 	<script>
 		angular.module("app", [])
 			.controller("MainController", function($scope, $window){
-				$window.onbeforeunload = function(){
+				window.onbeforeunload = function($event){
+					console.log(window.event);
 					console.log("before unload");
 					return "byebye";
 				}
-				$window.onunload = function(){
+				window.onunload = function(){
 					console.log("unload");
 					return "byebye";
 				}
-				$window.onload = function(){
+				window.onload = function(){
 					console.log("load");
+					return "load";
 				}
 			})
 	</script>
