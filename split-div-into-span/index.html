@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../angular.js"></script>
+    <style>
+        .red {
+            background: red;
+            color: white;
+        }
+
+        span {
+            display: inline-block;
+            margin: 3px 10px;
+        }
+
+        .edit-container {
+            outline: 1px solid skyblue;
+            box-shadow: 0 0 3px skyblue;
+        }
+    </style>
+    <script>
+        angular.module("app", [])
+            .directive("spanEditable", function () {
+                return {
+                    transclude: true,
+                    scope: {
+                        data: "=spanEditableData"
+                    },
+                    templateUrl: "./t.html",
+                    link: function (scope, element, attr, ctrl) {
+                        scope.tempData = scope.data.slice(0, scope.data.length);
+                        scope.remove = function (index) {
+                            scope.tempData.splice(index, 1)
+                        }
+
+                        scope.toggleEdit = function () {
+                            scope.isEdit = true;
+                        }
+                        scope.confirm = function () {
+                            console.log(scope.tempData);
+                            
+                            scope.isEdit = false;
+                            scope.tempData = scope.data.slice(0, scope.data.length);
+                        }
+                        scope.cancel = function () {
+                            scope.tempData = scope.data.slice(0, scope.data.length);
+                            scope.isEdit = false;
+                        }
+                    }
+                }
+            })
+            .controller("ctrl", function ($scope) {
+                $scope.data = [
+                    [
+                        {
+                            wordList: "你好 再见 谢谢"
+                        },
+                        {
+                            wordList: "哈哈 没事 请问"
+                        },
+                        {
+                            wordList: "haha hehe heihei"
+                        },
+                        {
+                            wordList: "ok nice hello"
+                        }
+                    ],
+                    [
+                        {
+                            wordList: "你好2 再见 谢谢"
+                        },
+                        {
+                            wordList: "哈哈2 没事 请问"
+                        },
+                        {
+                            wordList: "haha2 hehe heihei"
+                        },
+                        {
+                            wordList: "ok2 nice hello"
+                        }
+                    ],
+                    [
+                        {
+                            wordList: "你好3 再见 谢谢"
+                        },
+                        {
+                            wordList: "哈哈3 没事 请问"
+                        },
+                        {
+                            wordList: "haha3 hehe heihei"
+                        },
+                        {
+                            wordList: "ok3 nice hello"
+                        }
+                    ],
+                ];
+
+
+            })
+    </script>
+</head>
+
+<body ng-controller="ctrl">
+    <div ng-repeat="child in data">
+        <div span-editable span-editable-data="child">
+            <span ng-repeat="item in child">
+            {{item.wordList}}
+        </span>
+        </div>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+<div>
+    <ng-transclude ng-show="!isEdit"></ng-transclude>
+    <div ng-show="isEdit" class="edit-container">
+        <span ng-class="{'red':isHover}" ng-repeat="item in tempData" ng-mouseenter="isHover = true" ng-mouseout="isHover = false"
+            ng-click="remove($index)">
+        {{item.wordList}}
+    </span>
+    </div>
+    <button ng-show="!isEdit" ng-click="toggleEdit()">Edit</button>
+    <button ng-show="isEdit" ng-click="confirm()">OK</button>
+    <button ng-show="isEdit" ng-click="cancel()">Cancel</button>
+
+</div>
