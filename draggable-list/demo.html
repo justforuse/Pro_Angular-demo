@@ -1,92 +1,93 @@
 <!DOCTYPE html>
 <html ng-app="app">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <script src="../../jquery.js"></script>
+    <script src="../../jquery-ui.js"></script>
+    <script src="../../angular.js"></script>
+    <script src="./sortable.js"></script>
+    <script>
+      angular
+        .module('app', ['ui.sortable'])
+        .controller('sortCtrl', function($scope, $timeout, orderByFilter) {
+          $scope.cannotSort = false
+          $scope.data = [
+            {
+              name: 'allen',
+              age: 21,
+              i: 0
+            },
+            {
+              name: 'bob',
+              age: 18,
+              i: 1
+            },
+            {
+              name: 'curry',
+              age: 25,
+              i: 2
+            },
+            {
+              name: 'david',
+              age: 30,
+              i: 3
+            }
+          ]
 
-<head>
-	<meta charset="UTF-8">
-	<title></title>
-	<script src="../../jquery.js"></script>
-	<script src="../../jquery-ui.js"></script>
-	<script src="../../angular.js"></script>
-	<script src="ui-sortable/src/sortable.js"></script>
-	<script>
-	angular.module("app", ["ui.sortable"])
-		.controller("sortCtrl", function($scope, $timeout, orderByFilter) {
-			$scope.cannotSort = false;
-			$scope.data = [{
-				"name": "allen",
-				"age": 21,
-				"i": 0
-			}, {
-				"name": "bob",
-				"age": 18,
-				"i": 1
-			}, {
-				"name": "curry",
-				"age": 25,
-				"i": 2
-			}, {
-				"name": "david",
-				"age": 30,
-				"i": 3
-			}];
+          $scope.sortableOptions = {
+            // 数据有变化
+            update: function(e, ui) {
+              console.log('update')
+              $timeout(function() {
+                var resArr = []
+                for (var i = 0; i < $scope.data.length; i++) {
+                  resArr.push($scope.data[i].i)
+                }
+                console.log(resArr)
+              })
+            },
 
-			$scope.sortableOptions = {
-				// 数据有变化
-				update: function(e, ui) {
+            // 完成动作
+            stop: function(e, ui) {
+              //do nothing
+            },
+            items: 'li:not(.not-sortable)'
+          }
 
-					console.log("update");
-					$timeout(function() {
-						var resArr = [];
-						for (var i = 0; i < $scope.data.length; i++) {
-							resArr.push($scope.data[i].i);
-						}
-						console.log(resArr);
-					})
+          var dataWatcher = $scope.$watchCollection('data', function() {
+            console.log('watcher')
+            $scope.data = orderByFilter($scope.data, ['age'])
+            //销毁监听器
+            dataWatcher()
+          })
+        })
+    </script>
+    <style>
+      div {
+        width: 300px;
+        border: 1px solid red;
+      }
 
+      ul {
+        list-style: none;
+        padding: 0;
+      }
 
-				},
+      li {
+        padding: 5px;
+        border: 1px solid #ddd;
+      }
+    </style>
+  </head>
 
-				// 完成动作
-				stop: function(e, ui) {
-					//do nothing
-				},
-				items: "li:not(.not-sortable)"
-			}
-
-			var dataWatcher = $scope.$watchCollection("data", function(){
-				console.log("watcher")
-				$scope.data = orderByFilter($scope.data, ["age"]);
-				//销毁监听器
-				dataWatcher();
-			})
-		})
-	</script>
-	<style>
-	div {
-		width: 300px;
-		border: 1px solid red;
-	}
-	
-	ul {
-		list-style: none;
-		padding: 0;
-	}
-	
-	li {
-		padding: 5px;
-		border: 1px solid #ddd;
-	}
-	</style>
-</head>
-
-<body>
-	<div ng-controller="sortCtrl">
-		<ul ui-sortable="sortableOptions" ng-model="data">
-			<li ng-class="{'not-sortable': true}" ng-repeat="item in data" >
-				<span>{{item.name}}, {{item.age}}</span>
-			</li>
-		</ul>
-	</div>
-</body>
-
+  <body>
+    <div ng-controller="sortCtrl">
+      <ul ui-sortable="sortableOptions" ng-model="data">
+        <li ng-class="{'not-sortable': false}" ng-repeat="item in data">
+          <span>{{ item.name }}, {{ item.age }}</span>
+        </li>
+      </ul>
+    </div>
+  </body>
 </html>
