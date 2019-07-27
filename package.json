@@ -1,12 +1,6 @@
 {
-  "name": "Pro_AngularJS-demo",
+  "name": "pro-angularjs-demo",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
-  "scripts":{
-    "dev":"lite-server"
-  },
-  "devDependencies": {
-    "lite-server": "^2.3.0"
-  }
+  "license": "MIT"
 }
