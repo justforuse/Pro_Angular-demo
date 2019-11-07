@@ -1,93 +1,60 @@
 <!DOCTYPE html>
 <html ng-app="app">
-  <head>
-    <meta charset="UTF-8" />
-    <title></title>
-    <script src="../../jquery.js"></script>
-    <script src="../../jquery-ui.js"></script>
-    <script src="../../angular.js"></script>
-    <script src="./sortable.js"></script>
-    <script>
-      angular
-        .module('app', ['ui.sortable'])
-        .controller('sortCtrl', function($scope, $timeout, orderByFilter) {
-          $scope.cannotSort = false
-          $scope.data = [
-            {
-              name: 'allen',
-              age: 21,
-              i: 0
-            },
-            {
-              name: 'bob',
-              age: 18,
-              i: 1
-            },
-            {
-              name: 'curry',
-              age: 25,
-              i: 2
-            },
-            {
-              name: 'david',
-              age: 30,
-              i: 3
-            }
-          ]
 
-          $scope.sortableOptions = {
-            // 数据有变化
-            update: function(e, ui) {
-              console.log('update')
-              $timeout(function() {
-                var resArr = []
-                for (var i = 0; i < $scope.data.length; i++) {
-                  resArr.push($scope.data[i].i)
-                }
-                console.log(resArr)
-              })
-            },
+<head>
+  <meta charset="UTF-8" />
+  <title></title>
+  <script src="../jquery.js"></script>
+  <script src="../jquery-ui.js"></script>
+  <script src="../angular.js"></script>
+  <script src="./sortable.js"></script>
+  <script src="./index.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
-            // 完成动作
-            stop: function(e, ui) {
-              //do nothing
-            },
-            items: 'li:not(.not-sortable)'
-          }
+    h1 {
+      text-align: center;
+    }
 
-          var dataWatcher = $scope.$watchCollection('data', function() {
-            console.log('watcher')
-            $scope.data = orderByFilter($scope.data, ['age'])
-            //销毁监听器
-            dataWatcher()
-          })
-        })
-    </script>
-    <style>
-      div {
-        width: 300px;
-        border: 1px solid red;
-      }
+    div {
+      width: 300px;
+      border: 1px solid red;
+    }
 
-      ul {
-        list-style: none;
-        padding: 0;
-      }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
 
-      li {
-        padding: 5px;
-        border: 1px solid #ddd;
-      }
-    </style>
-  </head>
+    li {
+      cursor: grab;
+      user-select: none;
+      padding: 5px;
+      border: 1px solid #ddd;
+    }
 
-  <body>
-    <div ng-controller="sortCtrl">
-      <ul ui-sortable="sortableOptions" ng-model="data">
-        <li ng-class="{'not-sortable': false}" ng-repeat="item in data">
-          <span>{{ item.name }}, {{ item.age }}</span>
-        </li>
-      </ul>
-    </div>
-  </body>
+    .not-sortable {
+      color: #999;
+    }
+  </style>
+</head>
+
+<body ng-controller="sortCtrl">
+  <h1>ui-sortable demo</h1>
+  <p>
+    是否可排序：
+    <input type="checkbox" ng-model="canSort" ng-change="handleChange($)">
+  </p>
+  <div>
+    <ul ui-sortable="sortableOptions" ng-model="data">
+      <li ng-repeat="item in data" ng-class="{'not-sortable': !canSort || item.i === 3}">
+        <span>{{ item.name }}, {{ item.age }}</span>
+      </li>
+    </ul>
+  </div>
+</body>
+
 </html>
